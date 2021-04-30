@@ -3,7 +3,6 @@ import java.util.Random;
 
 public class MaxVerstappen implements Runnable{
 	Random random = new Random();
-	
 	public long time;
 	
 	@Override
@@ -15,12 +14,11 @@ public class MaxVerstappen implements Runnable{
 				e.printStackTrace();
 			}
 			System.out.println("Verstappen it's running");
-			time = System.currentTimeMillis();
-		}	
+		}
+		time = System.currentTimeMillis();
 	}
 	
 	public long getTime() {
 		return time;
 	}
-	
 }

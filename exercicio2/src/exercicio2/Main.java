@@ -2,7 +2,6 @@ package exercicio2;
 
 public class Main {
 	public static void main(String[] args) {
-		
 		MaxVerstappen objVerstappen = new MaxVerstappen();
 		LewisHamilton objHamilton = new LewisHamilton();
 		
