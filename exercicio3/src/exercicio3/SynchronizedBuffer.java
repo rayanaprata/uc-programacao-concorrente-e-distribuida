@@ -9,17 +9,13 @@ public class SynchronizedBuffer implements Buffer {
 	// place value into buffer
 	public synchronized void set(int value) {
 		try {
-			while(buffer != -1) {
-				wait();
+			while(buffer != -1) { // se tiver um dado ali dentro
+				wait(); // espera
 			}
-			System.out.printf("Producer writes\t%2d", value);
-			buffer = value;
-			notifyAll();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		
+		} catch (InterruptedException e) {}
+		notifyAll();
+		System.out.printf("Producer writes\t%2d", value);
+		buffer = value;
 	} // end method set
 
 	// return value from buffer
@@ -31,27 +27,13 @@ public class SynchronizedBuffer implements Buffer {
 			while(buffer == -1) {
 				wait();
 			}
-			val = buffer;
-			System.out.printf("Consumer reads\t%2d", buffer);
-			buffer = -1;
-			notifyAll();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+			
+		} catch (InterruptedException e) {}
 		
+		val = buffer;
+		notifyAll(); // buffer vazio novamente
+		System.out.printf("Consumer reads\t%2d", buffer);
+		buffer = -1;
 		return val;
 	} // end method get
 } // end class UnsynchronizedBuffer
-
-/**************************************************************************
-* (C) Copyright 1992-2005 by Deitel & Associates, Inc. and * Pearson Education,
-* Inc. All Rights Reserved. * * DISCLAIMER: The authors and publisher of this
-* book have used their * best efforts in preparing the book. These efforts
-* include the * development, research, and testing of the theories and programs
-* * to determine their effectiveness. The authors and publisher make * no
-* warranty of any kind, expressed or implied, with regard to these * programs
-* or to the documentation contained in these books. The authors * and publisher
-* shall not be liable in any event for incidental or * consequential damages in
-* connection with, or arising out of, the * furnishing, performance, or use of
-* these programs. *
-*************************************************************************/
