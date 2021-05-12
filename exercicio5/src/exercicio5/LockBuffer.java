@@ -1,4 +1,4 @@
-package exercicio4;
+package exercicio5;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
