@@ -12,12 +12,12 @@ public class SharedBufferTest
       // create new thread pool with two threads
       ExecutorService application = Executors.newFixedThreadPool( 2 );
 
-      // create UnsynchronizedBuffer to store ints
+      //create UnsynchronizedBuffer to store ints
       //Buffer sharedLocation = new UnsynchronizedBuffer();
-      
       //Buffer sharedLocation = new SynchronizedBuffer();
-
-      Buffer sharedLocation = new CircularBuffer(3);
+      //Buffer sharedLocation = new CircularBuffer(3);
+      Buffer sharedLocation = new SemaphoreBuffer(3);
+      
       
       System.out.println( "Action\t\tValue\tProduced\tConsumed" );
       System.out.println( "------\t\t-----\t--------\t--------\n" );
