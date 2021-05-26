@@ -6,10 +6,20 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		for(int it : set) {
+			System.out.print(it + " ");
+		}
+		
 		ForkJoinPool pool = new ForkJoinPool(4);
 		ParallellInc inc = new ParallellInc(set, 0, set.length-1);
 		
 		pool.invoke(inc);
+		
+		System.out.println();
+		
+		for(int it : set) {
+			System.out.print(it + " ");
+		}
 		
 	}
 	
