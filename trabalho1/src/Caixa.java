@@ -1,9 +1,13 @@
+import java.util.Random;
 
 public class Caixa implements Runnable {
 
 	private Buffer sharedLocation;
 	private Buffer bufferRampa;
 	private int qtdItensCompra;
+
+	Random gerador = new Random();
+	int time = gerador.nextInt((4000 - 2000) + 1) + 2000;
 
 	public Caixa(Buffer esteiraBuffer, Buffer rampaBuffer, int qtdItensCompra) {
 		sharedLocation = esteiraBuffer;
@@ -14,11 +18,9 @@ public class Caixa implements Runnable {
 	public void run() {
 		for (int i = 0; i < qtdItensCompra; i++) {
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(time);
 				bufferRampa.set(sharedLocation.get());
-			} catch (InterruptedException exception) {
-				exception.printStackTrace();
-			}
+			} catch (InterruptedException e) {}
 		}
 	}
 }

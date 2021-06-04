@@ -1,21 +1,22 @@
 
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class SharedBufferTest {
 	public static void main(String[] args) {
 		ExecutorService application = Executors.newFixedThreadPool(3);
-
-		Buffer sharedLocation = new BufferCircular(10);
-		Buffer bufferRampa = new BufferRampa(10);
+		Random gerador = new Random();
+		int qtdItens = gerador.nextInt((30 - 10) + 1) + 10;
+		
+		Buffer sharedLocation = new Esteira(30);
+		Buffer bufferRampa = new Rampa(30);
 
 		try {
-			application.execute(new Comprador(sharedLocation, 10));
-			application.execute(new Caixa(sharedLocation, bufferRampa, 10));
-			application.execute(new Ensacolador(bufferRampa, 10));
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
+			application.execute(new Comprador(sharedLocation, qtdItens));
+			application.execute(new Caixa(sharedLocation, bufferRampa, qtdItens));
+			application.execute(new Ensacolador(bufferRampa, qtdItens));
+		} catch (Exception e) {}
 
 		application.shutdown();
 	}

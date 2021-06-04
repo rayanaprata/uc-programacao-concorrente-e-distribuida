@@ -6,7 +6,7 @@ public class Ensacolador implements Runnable {
 
 	private Buffer bufferRampa;
 	private int qtdItensCompra;
-	Produtos produto;
+	ItensMercado itensMercado;
 
 	public Ensacolador(Buffer shared, int qtdItensCompra) {
 		bufferRampa = shared;
@@ -19,14 +19,12 @@ public class Ensacolador implements Runnable {
 			try {
 				Thread.sleep(2000);
 				do {
-					produto = bufferRampa.get();
-				} while (produto.getDescricao() != "Ultimo produto");
+					itensMercado = bufferRampa.get();
+				} while (itensMercado.getNome() != "Ultimo produto");
 
 				System.out.printf("-Ensacolador: [" + getHora() + "] Fim do ensacolamento\n");
 
-			} catch (InterruptedException exception) {
-				exception.printStackTrace();
-			}
+			} catch (InterruptedException E) {}
 		}
 	}
 

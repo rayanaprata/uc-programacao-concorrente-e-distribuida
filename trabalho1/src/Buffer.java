@@ -1,6 +1,6 @@
 
 public interface Buffer {
-	public Produtos get();
-	public void set(Produtos prod);
+	public ItensMercado get();
+	public void set(ItensMercado itens);
 
 }

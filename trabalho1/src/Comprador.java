@@ -6,61 +6,78 @@ import java.util.Date;
 import java.util.Random;
 
 public class Comprador implements Runnable {
-	private static Random generator = new Random();
 	private Buffer sharedLocation;
-	private Produtos produto;
-	ArrayList<Produtos> superMercado = new ArrayList<Produtos>();
-	ArrayList<Produtos> carrinhoCompras = new ArrayList<Produtos>();
+	ArrayList<ItensMercado> superMercado = new ArrayList<ItensMercado>();
+	ArrayList<ItensMercado> carrinhoCompras = new ArrayList<ItensMercado>();
 	private int qtdItensCompra;
 
+	Random gerador = new Random();
+	int time = gerador.nextInt((2000 - 1000) + 1) + 1000;
+	
 	public Comprador(Buffer shared, int qtdItensCompra) {
 		sharedLocation = shared;
 		this.qtdItensCompra = qtdItensCompra;
 	}
 
 	public void carregarCarrinho() {
-		superMercado.add(produto = new Produtos("Papel Higiênco", 18.00));
-		superMercado.add(produto = new Produtos("Sabonete", 3.20));
-		superMercado.add(produto = new Produtos("Pasta de Dente", 7.80));
-		superMercado.add(produto = new Produtos("Peito de Frango", 16.00));
-		superMercado.add(produto = new Produtos("Carne Moída", 23.00));
-		superMercado.add(produto = new Produtos("Batata Doce", 6.00));
-		superMercado.add(produto = new Produtos("Tomate", 7.50));
-		superMercado.add(produto = new Produtos("Morango", 8.50));
-		superMercado.add(produto = new Produtos("Limão", 4.00));
-		superMercado.add(produto = new Produtos("Arroz", 15.00));
+		superMercado.add(new ItensMercado("Papel Higiênco", 18.00));
+		superMercado.add(new ItensMercado("Sabonete", 3.20));
+		superMercado.add(new ItensMercado("Pasta de Dente", 7.80));
+		superMercado.add(new ItensMercado("Peito de Frango", 16.00));
+		superMercado.add(new ItensMercado("Carne Moída", 23.00));
+		superMercado.add(new ItensMercado("Batata Doce", 6.00));
+		superMercado.add(new ItensMercado("Tomate", 7.50));
+		superMercado.add(new ItensMercado("Morango", 8.50));
+		superMercado.add(new ItensMercado("Limão", 4.00));
+		superMercado.add(new ItensMercado("Arroz", 15.00));
+		superMercado.add(new ItensMercado("Macarrão", 2.00));
+		superMercado.add(new ItensMercado("Cerveja", 6.20));
+		superMercado.add(new ItensMercado("Ovo", 11.80));
+		superMercado.add(new ItensMercado("Miojo", 16.00));
+		superMercado.add(new ItensMercado("Brócolis", 23.00));
+		superMercado.add(new ItensMercado("Bala", 6.00));
+		superMercado.add(new ItensMercado("Chiclete", 7.50));
+		superMercado.add(new ItensMercado("Camisinha", 8.50));
+		superMercado.add(new ItensMercado("Desodorante", 4.00));
+		superMercado.add(new ItensMercado("Shampoo", 15.00));
+		superMercado.add(new ItensMercado("Chocolate", 18.00));
+		superMercado.add(new ItensMercado("Vodka", 3.20));
+		superMercado.add(new ItensMercado("Amendoim", 7.80));
+		superMercado.add(new ItensMercado("Ração de Cachorro", 16.00));
+		superMercado.add(new ItensMercado("Fralda", 23.00));
+		superMercado.add(new ItensMercado("Palito de Dente", 6.00));
+		superMercado.add(new ItensMercado("Vassoura", 7.50));
+		superMercado.add(new ItensMercado("Farinha", 8.50));
+		superMercado.add(new ItensMercado("Azeite", 4.00));
+		superMercado.add(new ItensMercado("Mostarda", 15.00));		
 	}
 
 	public void run() {
-		System.out.printf("-Comprador: [" + getHora() + "] Iniciando compras.\n");
+		System.out.printf("-Comprador: [" + getHora() + "] Iniciando compras\n");
 		carregarCarrinho();
 		int cont = 1;
-		for (Produtos prod : superMercado) {
+		for (ItensMercado item : superMercado) {
 			try {
-				Thread.sleep(generator.nextInt(2000));
+				Thread.sleep(time);
 				if (cont == qtdItensCompra) {
-					carrinhoCompras.add(produto = new Produtos("Ultimo produto", 0.00));
+					carrinhoCompras.add(new ItensMercado("Ultimo produto", 0.00));
 					break;
 				} else {
-					carrinhoCompras.add(prod);
+					carrinhoCompras.add(item);
 					System.out.printf(
-							"-Comprador: [" + getHora() + "] Colocando " + prod.getDescricao() + " no carrinho.\n");
+							"-Comprador: [" + getHora() + "] Colocando " + item.getNome() + " no carrinho\n");
 				}
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+			} catch (InterruptedException e) {}
 			cont = cont + 1;
 		}
 
-		System.out.printf("-Comprador: [" + getHora() + "] Indo para o caixa.\n");
+		System.out.printf("-Comprador: [" + getHora() + "] Indo para o caixa\n");
 
-		for (Produtos prod : carrinhoCompras) {
+		for (ItensMercado item : carrinhoCompras) {
 			try {
 				Thread.sleep(1000);
-				sharedLocation.set(prod);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+				sharedLocation.set(item);
+			} catch (Exception e) {}
 		}
 
 		System.out.printf("Carrinho vazio.\n");
@@ -69,8 +86,8 @@ public class Comprador implements Runnable {
 	public String getHora() {
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		Date hora = Calendar.getInstance().getTime();
-		String dataFormatada = sdf.format(hora);
-		return dataFormatada;
+		String data = sdf.format(hora);
+		return data;
 	}
 
 }
