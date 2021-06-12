@@ -1,0 +1,69 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<title>Create Your Page Here</title>
+
+<script language="JavaScript">
+<!-- Hide script from older browsers
+
+function renderPage(frm) {
+	parent.Result.document.writeln(frm.myPage.value);
+	parent.Result.document.close();
+}
+
+// End of hiding script -->
+</script>
+
+</head>
+<body bgcolor="#ccffff">
+<h3 style="align:center">Create or modify your HTML page in the text box.</h3>
+
+<p style="align:center">Click "Show Page" to see your page in
+the frame to the right.</p>
+
+<center>
+<form name="inputBox">
+
+	<textarea name="myPage" cols="40" rows="20">&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;       &lt;/title&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+h1	{text-align:center;
+	font-family:Arial, Helvetica, Sans-Serif;
+	}
+
+p	{text-indent:20px;
+	}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body bgcolor = "#ffffcc" text = "#000000"&gt;
+&lt;h1&gt;Hello, World!&lt;/h1&gt;
+
+&lt;p&gt;You can modify the text in the box to the left any way you like, and
+then click the "Show Page" button below the box to display the
+result here. Go ahead and do this as often and as long as you like.&lt;/p&gt;
+
+&lt;p&gt;You can also use this page to test your Javascript functions and local
+style declarations. Everything you do will be handled entirely by your own
+browser; nothing you type into the text box will be sent back to the
+server.&lt;/p&gt;
+
+&lt;p&gt;When you are satisfied with your page, you can select all text in the
+textarea and copy it to a new text file, with an extension of
+either &lt;b&gt;.htm&lt;/b&gt; or &lt;b&gt;.html&lt;/b&gt;, depending on your Operating System.
+This file can then be moved to your Web server.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+	</textarea>
+
+<br>
+
+	<input value=" Show Page " name="show" onclick="javascript:renderPage(inputBox)" type="button">
+</form>
+</center>
+
+
+
+</body></html>
