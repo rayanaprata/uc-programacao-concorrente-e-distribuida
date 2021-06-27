@@ -32,9 +32,19 @@ public class Receiver implements Runnable {
 				receiveSocket.receive(clientDatagram);
 				String msg = new String(buffer);
 				System.out.printf("received> %s\n", msg);
+				
+				// eviar mensagem
+				DatagramPacket clientDatagram1 = new DatagramPacket(msg.getBytes(),msg.getBytes().length, clientDatagram.getAddress(), clientDatagram.getPort());
+				try {
+					Thread.sleep(1000);
+					receiveSocket.send(clientDatagram1);
+				} catch (InterruptedException e) {}
+				
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
+			}	
+			
+			
 		}
 	}
 

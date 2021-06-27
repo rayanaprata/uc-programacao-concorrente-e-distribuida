@@ -46,6 +46,18 @@ public class Sender implements Runnable{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
+			//Receive response
+			byte[] buffer = new byte[1000];
+			DatagramPacket response = new DatagramPacket(buffer, buffer.length);
+						
+			try {
+				sendSocket.receive(response);
+			} catch (IOException e) {}			
+			// Print response
+			String resp = new String(response.getData());
+			System.out.println("Servidor - " + resp);
+			
 		}
 		// fecha socket e libera porta
 		sendSocket.close();
